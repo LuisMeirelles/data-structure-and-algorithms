@@ -9,19 +9,28 @@ typedef struct Node
     int value;
 } Node;
 
-int push(Node *head, const int value)
+void populate_list(Node *head)
 {
-    Node *pointer = head;
+    Node *current = head;
 
-    while (pointer->next != NULL)
+    size_t count = 0;
+
+    while (1)
     {
-        pointer = pointer->next;
+        current->value = count;
+        count++;
+
+        if (count == ARRAY_SIZE)
+        {
+            break;
+        }
+
+        Node *next = malloc(sizeof(Node) * ARRAY_SIZE);
+
+        current->next = next;
+
+        current = next;
     }
-
-    Node *new_node = malloc(sizeof(Node));
-    new_node->value = value;
-
-    pointer->next = new_node;
 }
 
 void print_list(Node *head)
@@ -45,40 +54,37 @@ void print_list(Node *head)
     printf("\n");
 }
 
+int push(Node *head, const int value)
+{
+    Node *pointer = head;
+
+    while (pointer->next != NULL)
+    {
+        pointer = pointer->next;
+    }
+
+    Node *new_node = malloc(sizeof(Node));
+
+    if (new_node == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for new node.\n");
+        return -1;
+    }
+    
+    new_node->value = value;
+
+    pointer->next = new_node;
+}
+
 int main()
 {
     Node *linked_list = malloc(sizeof(Node) * ARRAY_SIZE);
 
-    Node *current = linked_list;
-
-    size_t count = 0;
-
-    while (1)
-    {
-        current->value = count;
-        count++;
-
-        if (count == ARRAY_SIZE)
-        {
-            break;
-        }
-
-        Node *next = malloc(sizeof(Node) * ARRAY_SIZE);
-
-        current->next = next;
-
-        current = next;
-    }
+    populate_list(linked_list);
 
     print_list(linked_list);
 
-    int success = push(linked_list, 1234);
-
-    if (!success)
-    {
-        fprintf(stderr, "An error occurred while trying to add a node to a linked list\n");
-        return 1;
-    }
+    push(linked_list, 1234);
 
     print_list(linked_list);
 
