@@ -4,28 +4,24 @@
 #define ARRAY_SIZE 10
 #define SEARCH_VALUE -4
 
-int search(int *array, int expected_value)
+int search(const int *array, const int expected_value)
 {
-    int *left = array;
+    int *left = (int *)array;
 
-    int last_element_index = ARRAY_SIZE - 1;
-
-    int *right = array + last_element_index;
+    int *right = (int *)array + (ARRAY_SIZE - 1);
 
     int *choice;
 
-    while (1)
+    while (right >= left)
     {
         choice = left + ((right - left) / 2);
 
-        int actual_value = *choice;
-
-        if (actual_value == expected_value)
+        if (*choice == expected_value)
         {
             return choice - array;
         }
 
-        if (actual_value < expected_value)
+        if (*choice < expected_value)
         {
             left = choice + 1;
         }
@@ -33,12 +29,9 @@ int search(int *array, int expected_value)
         {
             right = choice - 1;
         }
-
-        if (right < left)
-        {
-            return -1;
-        }
     }
+
+    return -1;
 }
 
 int main(int argc, char *argv[])
@@ -65,7 +58,7 @@ int main(int argc, char *argv[])
 
     printf("\n");
 
-    int array_index = search(array, SEARCH_VALUE);
+    const int array_index = search(array, SEARCH_VALUE);
 
     if (array_index != -1)
     {
