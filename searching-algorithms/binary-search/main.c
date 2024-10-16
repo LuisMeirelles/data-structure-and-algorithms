@@ -36,16 +36,15 @@ size_t search(const int *array, const int expected_value)
 
 int main(int argc, char *argv[])
 {
-    printf("valor a ser buscado: %d\n", SEARCH_VALUE);
-
     int *array = (int *)malloc(sizeof(int) * ARRAY_SIZE);
 
     if (array == NULL)
     {
-        printf("erro ao alocar memória\n");
+        fprintf(stderr, "erro ao alocar memória\n");
         return 1;
     }
 
+    printf("valor a ser buscado: %d\n", SEARCH_VALUE);
     printf("array: ");
 
     for (size_t i = 0; i < ARRAY_SIZE; i++)
