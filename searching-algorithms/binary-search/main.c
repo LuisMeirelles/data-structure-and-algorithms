@@ -4,7 +4,7 @@
 #define ARRAY_SIZE 10
 #define SEARCH_VALUE -4
 
-int search(const int *array, const int expected_value)
+size_t search(const int *array, const int expected_value)
 {
     int *left = (int *)array;
 
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
     printf("array: ");
 
-    for (int i = 0; i < ARRAY_SIZE; i++)
+    for (size_t i = 0; i < ARRAY_SIZE; i++)
     {
         int value = (i - 5) * 2;
         array[i] = value;
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
     printf("\n");
 
-    const int array_index = search(array, SEARCH_VALUE);
+    const size_t array_index = search(array, SEARCH_VALUE);
 
     if (array_index != -1)
     {
