@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #define ARRAY_SIZE 10
 #define SEARCH_VALUE -4
